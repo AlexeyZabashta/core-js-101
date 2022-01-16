@@ -499,8 +499,14 @@ function getIdentityMatrix(n) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const arrLength = end - start + 1;
+  const newArr = [];
+  new Array(arrLength).fill(1, 0, arrLength).reduce(((st, elem) => {
+    newArr.push(st);
+    return st + elem;
+  }), start);
+  return newArr;
 }
 
 /**
@@ -624,8 +630,23 @@ function getElementByIndexes(arr, indexes) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let start = [];
+  let end = [];
+  let half = 0;
+  if (arr.length % 2 === 0) {
+    start = arr.slice(0, (arr.length) / 2);
+    end = arr.slice((arr.length) / 2);
+  } else {
+    start = arr.slice(0, (arr.length - 1) / 2);
+    end = arr.slice((arr.length + 1) / 2);
+    half = arr[(arr.length - 1) / 2];
+  }
+  if (half === 0) {
+    return end.concat(start);
+  }
+  end.push(half);
+  return end.concat(start);
 }
 
 
