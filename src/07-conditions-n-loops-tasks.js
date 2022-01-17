@@ -147,8 +147,20 @@ function isTriangle(a, b, c) {
   }
   return false;
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  let answ;
+  const x0 = rect1.left;
+  const y0 = rect1.top;
+  const x1 = x0 + rect1.width;
+  const y1 = y0 + rect1.height;
+  const x2 = rect2.left;
+  const y2 = rect2.top;
+  const x3 = x2 + rect2.width;
+  const y3 = y2 + rect2.height;
+  if (x0 > x3 || x1 < x2 || y0 > y3 || y1 < y2) {
+    answ = false;
+  } else answ = true;
+  return answ;
 }
 
 
@@ -306,8 +318,12 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const sum = (`${num}`).split('').reduce((r, v) => Number(r) + Number(v), 0);
+  if (sum < 9) {
+    return sum;
+  }
+  return getDigitalRoot(sum);
 }
 
 
@@ -357,8 +373,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -397,8 +413,20 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const rowsM1 = m1.length; const colsA = m1[0].length;
+  const rowsM2 = m2.length; const colsB = m2[0].length;
+  const C = [];
+  if (colsA !== rowsM2) return false;
+  for (let i = 0; i < rowsM1; i += 1) C[i] = [];
+  for (let k = 0; k < colsB; k += 1) {
+    for (let i = 0; i < rowsM1; i += 1) {
+      let t = 0;
+      for (let j = 0; j < rowsM2; j += 1) t += m1[i][j] * m2[j][k];
+      C[i][k] = t;
+    }
+  }
+  return C;
 }
 
 
