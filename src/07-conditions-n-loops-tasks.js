@@ -300,8 +300,19 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const numArr = String(ccn).split('');
+  const oddLength = numArr.length % 2 === 0;
+  const total = numArr.map((elem, idex) => {
+    let num = elem;
+    const currentEven = idex % 2 === 0;
+    if ((oddLength && currentEven) || (!oddLength && !currentEven)) {
+      num *= 2;
+      if (num > 9) num -= 9;
+    }
+    return Number(num);
+  }).reduce((prev, curr) => prev + curr);
+  return total % 10 === 0;
 }
 
 /**
@@ -390,8 +401,10 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const ps = pathes.map((x) => x.split('/'));
+  const ind = ps[0].findIndex((x, i) => !ps.every((v) => v[i] === x));
+  return !ind ? '' : `${ps[0].slice(0, ind).join('/')}/`;
 }
 
 
@@ -460,8 +473,32 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let cell = [];
+  position.map((elem) => {
+    while (elem.length < 3) elem.push('');
+    cell.concat(elem);
+    return 'something';
+  });
+  cell = position.flat(position.length - 1);
+  let victory;
+  if (cell[0] === cell[1] && cell[1] === cell[2] && cell[2] === 'X') victory = 'X';
+  if (cell[3] === cell[4] && cell[4] === cell[5] && cell[5] === 'X') victory = 'X';
+  if (cell[6] === cell[7] && cell[7] === cell[8] && cell[8] === 'X') victory = 'X';
+  if (cell[6] === cell[3] && cell[3] === cell[0] && cell[0] === 'X') victory = 'X';
+  if (cell[7] === cell[4] && cell[4] === cell[1] && cell[1] === 'X') victory = 'X';
+  if (cell[8] === cell[5] && cell[5] === cell[2] && cell[2] === 'X') victory = 'X';
+  if (cell[6] === cell[4] && cell[4] === cell[2] && cell[2] === 'X') victory = 'X';
+  if (cell[0] === cell[4] && cell[4] === cell[8] && cell[8] === 'X') victory = 'X';
+  if (cell[0] === cell[1] && cell[1] === cell[2] && cell[2] === '0') victory = '0';
+  if (cell[3] === cell[4] && cell[4] === cell[5] && cell[5] === '0') victory = '0';
+  if (cell[6] === cell[7] && cell[7] === cell[8] && cell[8] === '0') victory = '0';
+  if (cell[6] === cell[3] && cell[3] === cell[0] && cell[0] === '0') victory = '0';
+  if (cell[7] === cell[4] && cell[4] === cell[1] && cell[1] === '0') victory = '0';
+  if (cell[8] === cell[5] && cell[5] === cell[2] && cell[2] === '0') victory = '0';
+  if (cell[6] === cell[4] && cell[4] === cell[2] && cell[2] === '0') victory = '0';
+  if (cell[0] === cell[4] && cell[4] === cell[8] && cell[8] === '0') victory = '0';
+  return victory;
 }
 
 
